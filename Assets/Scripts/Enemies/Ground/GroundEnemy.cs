@@ -21,6 +21,7 @@ public class GroundEnemy : MonoBehaviour
     public AudioSource hitAudio;
     public GameObject rango;
     public GameObject hit;
+    public LayerMask wallLayer;
 
     void Start()
     {
@@ -35,7 +36,8 @@ public class GroundEnemy : MonoBehaviour
 
     public void Comportamientos() {
 
-        if(Mathf.Abs(transform.position.x - player.transform.position.x) > rangoVision && !atacando) {
+        if (Mathf.Abs(transform.position.x - player.transform.position.x) > rangoVision && !atacando)
+        {
             animator.SetBool("walk", false);
             cronometro += 1 * Time.deltaTime;
             if (cronometro >= 4)
@@ -46,11 +48,11 @@ public class GroundEnemy : MonoBehaviour
 
             switch (rutina)
             {
-                case 0: //Se queda quieto
+                case 0: // Se queda quieto
                     animator.SetBool("walk", false);
                     break;
 
-                case 1: 
+                case 1:
                     direccion = Random.Range(0, 2);
                     rutina++;
                     break;
@@ -58,13 +60,19 @@ public class GroundEnemy : MonoBehaviour
                 case 2:
                     switch (direccion)
                     {
-                        case 0: //Se mueve derecha
-                            transform.rotation = Quaternion.Euler(0, 0, 0);
-                            transform.Translate(Vector3.right * WalkSpeed * Time.deltaTime);
+                        case 0: // Se mueve derecha
+                            if (!HayParedEnDireccion(Vector2.right))
+                            {
+                                transform.rotation = Quaternion.Euler(0, 0, 0);
+                                transform.Translate(Vector3.right * WalkSpeed * Time.deltaTime);
+                            }
                             break;
-                        case 1: //Se mueve izquierda
-                            transform.rotation = Quaternion.Euler(0, 180, 0);
-                            transform.Translate(Vector3.right * WalkSpeed * Time.deltaTime);
+                        case 1: // Se mueve izquierda
+                            if (!HayParedEnDireccion(Vector2.left))
+                            {
+                                transform.rotation = Quaternion.Euler(0, 180, 0);
+                                transform.Translate(Vector3.right * WalkSpeed * Time.deltaTime);
+                            }
                             break;
                     }
                     animator.SetBool("walk", true);
@@ -106,6 +114,15 @@ public class GroundEnemy : MonoBehaviour
             }
         }
     }
+
+    // Función para verificar si hay una pared en la dirección especificada
+    private bool HayParedEnDireccion(Vector2 direccion)
+    {
+        // Lanzar un rayo en la dirección especificada para detectar si hay una pared
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direccion, 1f, wallLayer);
+        return hit.collider != null;
+    }
+
 
     public void FinalAni() //Se acaba la animación de atacar
     {
