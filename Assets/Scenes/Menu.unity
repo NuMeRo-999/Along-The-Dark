@@ -807,12 +807,14 @@ MonoBehaviour:
 
     Shoot - Left Click
 
+    Reload - R
+
     Action - E
 
-    Climb Ladders
-    - W
+    Climb
+    Ladders - W
 
-    Down Ladders - S
+    Descend Ladders - S
 
     Crouch - L.Ctrl'
   m_isRightToLeft: 0
