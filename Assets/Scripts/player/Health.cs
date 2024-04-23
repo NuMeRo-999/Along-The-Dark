@@ -14,12 +14,14 @@ public class Health : MonoBehaviour
     public Image image;
     public Animator animator;
     public GameObject Linterna;
+    public GameObject UIRevive;
     
     void Start()
     {
         playerCollider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
         image.fillAmount= maxHealth;
+        UIRevive.SetActive(false);
     }
 
     public void takeDamage()
@@ -35,6 +37,7 @@ public class Health : MonoBehaviour
             {
                 animator.SetTrigger("Dead");
                 alive= false;
+                UIRevive.SetActive(true);
             }
             
             playerCollider.size = new Vector2(1.725619f, 3.8f);

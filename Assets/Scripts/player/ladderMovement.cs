@@ -9,6 +9,7 @@ public class ladderMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     public AudioSource audio;
+    public GameObject laddersText;
 
     void Start()
     {
@@ -28,12 +29,12 @@ public class ladderMovement : MonoBehaviour
                 {
                     audio.Play();
                 }
-                animator.SetBool("upLadder", true);
+                /*animator.SetBool("upLadder", true);*/
             }
             else
             {
                 audio.Stop();
-                animator.SetBool("upLadder", false);
+                /*animator.SetBool("upLadder", false);*/
             }
         }        
     }
@@ -51,6 +52,7 @@ public class ladderMovement : MonoBehaviour
     {
         if (collision.CompareTag("Escalera")){
             tocandoEscalera = true;
+            laddersText.active = true;
         }   
     }
 
@@ -58,6 +60,7 @@ public class ladderMovement : MonoBehaviour
     {
         if (collision.CompareTag("Escalera")){
             tocandoEscalera = false;
+            laddersText.active = false;
             escalando = false;
         }
     }

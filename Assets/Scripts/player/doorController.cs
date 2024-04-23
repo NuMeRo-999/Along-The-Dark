@@ -7,6 +7,7 @@ public class doorController : MonoBehaviour
     public LayerMask doorLayer;
     private Animator animator;
     private BoxCollider2D doorCollider;
+    public GameObject doorText;
     public float distance;
     public bool hitDoor;
 
@@ -31,6 +32,7 @@ public class doorController : MonoBehaviour
             hitDoor = true;
 
             door = hitDoorR.collider.gameObject.GetComponent<Door>();
+            doorText.active = true;
 
             if (hitDoor && Input.GetKeyDown(KeyCode.E))
             {
@@ -42,6 +44,7 @@ public class doorController : MonoBehaviour
             hitDoor = true;
 
             door = hitDoorL.collider.gameObject.GetComponent<Door>();
+            doorText.active = true;
 
             if (hitDoor && Input.GetKeyDown(KeyCode.E))
             {
@@ -51,6 +54,7 @@ public class doorController : MonoBehaviour
         else
         {
             hitDoor = false;
+            doorText.active = false;
         }
     }
 }
